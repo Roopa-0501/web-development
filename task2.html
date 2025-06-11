@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-2</title>
+    <link href="task2.css" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <h1>Task-2</h1>
+    </div>
+    <div class="navi">
+        <div class="abc">Home</div>
+        <div class="abc">Contact</div>
+        <div class="abc">To-Do List</div>
+    </div>
+    <div class="body">
+        <div class="contact">        
+            <h2>Contact</h2>
+            <form action="#" method="post" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" />
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" rows="3" cols="20"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Contact" />
+                </div>
+            </form>
+        </div>
+        
+        <div class="todo">
+            <h2>To-Do List</h2>
+            <input type="text" id="taskInput" placeholder="Add new task">
+            <button onclick="addTask()">Add</button>
+            
+            <ul id="taskList"></ul>
+            
+            <script>
+            function addTask() {
+              const taskText = document.getElementById("taskInput").value.trim();
+              if (taskText === "") return;
+            
+              const li = document.createElement("li");
+              li.textContent = taskText;
+            
+              li.addEventListener("click", function () {
+                li.classList.toggle("completed");
+              });
+            
+              const delBtn = document.createElement("button");
+              delBtn.textContent = "Delete";
+              delBtn.style.backgroundColor = "crimson";
+              delBtn.style.borderRadius = "5px";
+              delBtn.style.padding = "10px 10px";
+              delBtn.style.color = "white";
+              delBtn.onclick = function (e) {
+                e.stopPropagation();
+                li.remove();
+              };
+            
+              li.appendChild(delBtn);
+              document.getElementById("taskList").appendChild(li);
+              document.getElementById("taskInput").value = "";
+            }
+            function validateForm() {
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const address = document.getElementById("address").value.trim();
+
+                if ( !/^[A-Za-z\s]+$/.test(name)) {
+                    alert("Please enter a valid name.");
+                    return false;
+                }
+
+                if (!email.includes("@") || !email.includes(".")) {
+                    alert("Invalid Email Format");
+                    return false;
+                }
+
+                if (address.length < 5) {
+                    alert("Please enter a valid address (at least 5 characters).");
+                    return false;
+                }
+                alert("Hello " + name + "!");
+                return true; // If all validations pass
+            }
+            </script>
+        </div>
+    </div>
+</body>
+</html>
