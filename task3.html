@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task 3: Advanced Styling & JS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to right, #e3f2fd, #fce4ec);
+      color: #333;
+      padding: 20px;
+    }
+    header {
+      background: #6200ea;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.carousel img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  display: block;
+}
+
+.carousel .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  color: #333;
+  font-size: 24px;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.carousel .nav:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.carousel .left {
+  left: 10px;
+}
+
+.carousel .right {
+  right: 10px;
+}
+
+    h2 {
+      color: #6200ea;
+      margin-bottom: 15px;
+    }
+    
+    #quizContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #quizContainer input {
+      padding: 10px;
+      border: 2px solid #6200ea;
+      border-radius: 8px;
+    }
+    #quizContainer button {
+  padding: 8px 14px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: auto; /* ✅ Not full width */
+  max-width: 300px;
+  align-self: flex-start;
+  transition: background 0.3s;
+}
+
+#quizContainer button:hover {
+  background-color: #388e3c;
+}
+
+    #quizContainer button {
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #quizContainer button:hover {
+      background-color: #388e3c;
+    }
+    #api button {
+      padding: 10px 20px;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    #api button:hover {
+      background-color: #fb8c00;
+    }
+    #jokeText {
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+    }
+    @media (min-width: 769px) and (max-width: 1024px) {
+      body {
+        font-size: 18px;
+      }
+    }
+    @media (min-width: 1025px) {
+      body {
+        font-size: 19px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header><h1>Responsive Web Project</h1></header>
+
+  <!-- Image Carousel -->
+  <div class="carousel-wrapper">
+    <div class="carousel">
+      <h2>Image Carousel</h2>
+      <img id="carouselImage" src="img1.jpg" alt="carousel image" />
+      <button class="nav left" onclick="prevImage()">&lt;</button>
+      <button class="nav right" onclick="nextImage()">&gt;</button>
+    </div>
+  </div>
+  
+  
+
+  <!-- Quiz -->
+  <section id="quiz">
+    <h2>Interactive Quiz</h2>
+    <div id="quizContainer">Loading question...</div>
+  </section>
+
+  <!-- API -->
+  <section id="api">
+    <h2>Random Joke</h2>
+    <button onclick="getJoke()">Get Joke</button>
+    <p id="jokeText"></p>
+  </section>
+
+  <script>
+    const images = [
+  "img1.jpg",
+  "img2.jpg",
+  "img3.jpg"
+];
+let index = 0;
+
+function nextImage() {
+  index = (index + 1) % images.length;
+  document.getElementById("carouselImage").src = images[index];
+}
+
+function prevImage() {
+  index = (index - 1 + images.length) % images.length;
+  document.getElementById("carouselImage").src = images[index];
+}
+
+
+let correctAnswer = "";
+
+function loadQuiz() {
+  fetch("https://opentdb.com/api.php?amount=1&type=multiple")
+    .then(res => res.json())
+    .then(data => {
+      const questionData = data.results[0];
+      const question = decodeHTML(questionData.question);
+      correctAnswer = decodeHTML(questionData.correct_answer);
+      const incorrect = questionData.incorrect_answers.map(ans => decodeHTML(ans));
+      const options = [...incorrect, correctAnswer].sort(() => Math.random() - 0.5);
+
+      const container = document.getElementById("quizContainer");
+      container.innerHTML = `
+        <p>${question}</p>
+        ${options.map(opt => `
+          <button onclick="checkAnswer(this)">${opt}</button>
+        `).join("")}
+      `;
+    });
+}
+
+function checkAnswer(btn) {
+  const userAns = btn.textContent;
+  if (userAns === correctAnswer) {
+    alert("Correct!");
+  } else {
+    alert("Wrong! Correct answer is: " + correctAnswer);
+  }
+  loadQuiz(); // load next
+}
+
+function decodeHTML(str) {
+  const txt = document.createElement("textarea");
+  txt.innerHTML = str;
+  return txt.value;
+}
+
+window.onload = loadQuiz;
+
+    function getJoke() {
+      fetch("https://official-joke-api.appspot.com/random_joke")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("jokeText").innerText = `${data.setup} — ${data.punchline}`;
+        })
+        .catch(() => {
+          document.getElementById("jokeText").innerText = "Failed to fetch joke.";
+        });
+    }
+  </script>
+</body>
+</html>
