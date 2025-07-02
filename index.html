@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Portfolio – Home</title>
+  <style>
+   /* Base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #fce4ec);
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container */
+main {
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Navigation */
+nav {
+  background-color: #6200ea;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  text-decoration: underline;
+  transform: scale(1.03);
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 40px 20px;
+}
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #6200ea;
+}
+header p {
+  font-size: 1.2rem;
+  color: #444;
+}
+
+/* Section */
+section {
+  background: #fff;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+section h2 {
+  color: #6200ea;
+  margin-bottom: 15px;
+}
+section ul {
+  padding-left: 20px;
+}
+section ul li {
+  margin-bottom: 8px;
+}
+
+/* Form */
+form input,
+form textarea,
+form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+form button {
+  background-color: #6200ea;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+form button:hover {
+  background-color: #3700b3;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f3e5f5;
+  color: #555;
+  font-size: 0.9rem;
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav a {
+    display: inline-block;
+    margin: 10px 5px;
+  }
+  header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> 
+    <a href="proj.html">Projects</a> 
+    <a href="contact.html">Contact</a>
+  </nav>
+  <header><h1>Golla Roopa</h1></header>
+  <section>
+    <h2>About Me</h2>
+    <p>Iam pursuing a Bachelor's degree in Computer Science and Engineering at Rajiv Gandhi Universiyt of Knowlwedge Technologies,Basar</p>
+  </section>
+  <section>
+    <h2>Skills & Certifications</h2>
+    <ul>
+      <li>Java, C, JavaScript</li>
+      <li>HTML, CSS, MySQL, PHP</li>
+      <li>Web Dev Course, Essay Competition Runner‑up</li>
+    </ul>
+  </section>
+  <footer>
+    <a href="https://github.com/Roopa-0501/web-development">GitHub</a> |
+    <a href="https://www.linkedin.com/posts/g-roopa-435323368">LinkedIn</a>
+  </footer>
+</body>
+</html>
